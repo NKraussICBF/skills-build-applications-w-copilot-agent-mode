@@ -19,11 +19,11 @@ from rest_framework import routers
 from .views import TeamViewSet, UserViewSet, ActivityViewSet, WorkoutViewSet, LeaderboardViewSet, api_root
 
 router = routers.DefaultRouter()
-router.register(r'teams', TeamViewSet)
-router.register(r'users', UserViewSet)
-router.register(r'activities', ActivityViewSet)
-router.register(r'workouts', WorkoutViewSet)
-router.register(r'leaderboard', LeaderboardViewSet)
+router.register(r'api/teams', TeamViewSet)
+router.register(r'api/users', UserViewSet)
+router.register(r'api/activities', ActivityViewSet)
+router.register(r'api/workouts', WorkoutViewSet)
+router.register(r'api/leaderboard', LeaderboardViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

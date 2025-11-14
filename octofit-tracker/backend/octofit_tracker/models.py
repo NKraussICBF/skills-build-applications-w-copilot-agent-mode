@@ -1,4 +1,3 @@
-
 from djongo import models
 from bson import ObjectId
 
@@ -10,6 +9,7 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
+class User(models.Model):
     _id = models.ObjectIdField(primary_key=True, default=ObjectId, editable=False)
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=100)
@@ -19,6 +19,7 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
+class Activity(models.Model):
     _id = models.ObjectIdField(primary_key=True, default=ObjectId, editable=False)
     user = models.ForeignKey('User', on_delete=models.CASCADE, related_name='activities', to_field='_id')
     type = models.CharField(max_length=100)
@@ -28,6 +29,7 @@ class Team(models.Model):
     def __str__(self):
         return f"{self.user.name} - {self.type}"
 
+class Workout(models.Model):
     _id = models.ObjectIdField(primary_key=True, default=ObjectId, editable=False)
     name = models.CharField(max_length=100)
     description = models.TextField()
@@ -36,6 +38,7 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
+class Leaderboard(models.Model):
     _id = models.ObjectIdField(primary_key=True, default=ObjectId, editable=False)
     team = models.ForeignKey('Team', on_delete=models.CASCADE, related_name='leaderboards', to_field='_id')
     points = models.IntegerField(default=0)

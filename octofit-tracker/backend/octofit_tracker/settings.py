@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,18 @@ SECRET_KEY = 'django-insecure-#q(n4qmp2mnn3k32t**a2t20^zduudjid+v@1$k!1mkh#@uo0!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+# Get CODESPACE_NAME from environment
+CODESPACE_NAME = os.environ.get('CODESPACE_NAME', '')
+
+# Configure ALLOWED_HOSTS for Codespace and localhost
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+]
+
+# Add Codespace URL if running in a Codespace
+if CODESPACE_NAME:
+    ALLOWED_HOSTS.append(f'{CODESPACE_NAME}-8000.app.github.dev')
 
 
 # Application definition
@@ -93,6 +105,11 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = ['*']
 CORS_ALLOW_METHODS = ['DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST', 'PUT']
+
+# CSRF settings for Codespace
+CSRF_TRUSTED_ORIGINS = []
+if CODESPACE_NAME:
+    CSRF_TRUSTED_ORIGINS.append(f'https://{CODESPACE_NAME}-8000.app.github.dev')
 
 
 # Password validation
